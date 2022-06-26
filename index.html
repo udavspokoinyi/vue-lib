@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.8" />
+        <title>Vue3</title>
+        <link rel="stylesheet" href="theme.css" />
+        <style>
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container"  id="App" v-cloak>
+            <div class="card  ">
+                <h1 :style="{color: inputValue.length < 5 ? 'purple' : 'red'}" 
+                v-text="title"></h1>
+                <div class="form-control">
+                    <input type="text" 
+                    @keypress.enter.exact="addNewNote" 
+                    v-model='inputValue' 
+                    :placeholder="placeholderInput"/>
+                </div>
+                <h2>inputValue: {{inputValue}}</h2>
+                <button class="btn" @click="addNewNote">Add</button>
+                <hr />
+                <ul class="list" v-if="notes.length">
+                    <li class="list-item" v-for="(note, idx) in notes">
+                        <!-- <span :class="note.length > 5 ? 'primary' : 'bold' ">{{idx+1}}){{toUpperCase(note)}}</span> -->
+                        <!-- <span :class="{
+                            'primary': true,
+                            'bold':note.length > 5}
+                        "> -->
+                        <span :class="['bold', {'primary': note.length > 5}]
+                        " v-text="toUpperCase(note)"></span>
+                        <button class="btn danger" 
+                        @click="removeNote(idx)"
+                        :key="note" >Delete note</button>
+                    </li>
+                    <hr>
+                    <li>
+                        <strong>Count of notes : {{notes.length}} </strong>
+                    </li>
+                </ul>
+                <p v-else>Add urs first note!</p>
+            </div>
+
+        </div>
+        <script src=" https://unpkg.com/vue@next"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
